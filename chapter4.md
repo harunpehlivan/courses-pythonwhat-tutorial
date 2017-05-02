@@ -1,5 +1,5 @@
 ---
-title       : user defined functions
+title       : User defined functions
 description : Insert the chapter description here
 
 --- type:NormalExercise lang:python xp:100 skills:2 key:2e59e3582b
