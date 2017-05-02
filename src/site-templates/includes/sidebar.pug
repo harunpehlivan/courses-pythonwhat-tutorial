@@ -1,0 +1,11 @@
+.sidebar
+  ul.menu-root.menu-chapters
+    each chapter, index in chapters
+      li(class = chapter.url == url ? 'active' : undefined)
+        a.chapter-link(href = chapter.url).
+          #{chapter.title}
+        ul.menu-sub
+          each val, index in chapter.exercises
+            li
+              a.section-link(href = '#' + val.title.replace(/ /g, '-')).
+                #{val.title}

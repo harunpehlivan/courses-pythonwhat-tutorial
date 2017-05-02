@@ -1,0 +1,17 @@
+#docwhat.container.with-sidebar
+  each val, index in exercises
+    h2
+      a(name = val.title.replace(/ /g, '-') )
+      | #{val.title}
+    
+    .assignment
+      | !{val.assignment}
+    
+    .dc-lite-example
+      
+      dc-lite-editor(
+          exercise-data=JSON.stringify(val))
+
+      .instructions
+        h3="Instructions"
+        | !{val.instructions}

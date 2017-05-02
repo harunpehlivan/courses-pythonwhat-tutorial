@@ -9,7 +9,7 @@ attachments :
 
 ## int
 
-[see test_object docs](http://pythonwhat.readthedocs.io/en/latest/simple_tests/test_object.html)
+[see test\_object docs](http://pythonwhat.readthedocs.io/en/latest/simple_tests/test_object.html)
 
 It is very common for submission correctness tests (SCTs) to check the following:
 
