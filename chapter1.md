@@ -570,7 +570,6 @@ As with lists and dictionaries, you may sometimes want to ensure that someone ha
 ```
 x = ["a", "b", "c"]
 x[1]
-
 np_x = np.array(x)
 np_x[1]
 ```
