@@ -16,6 +16,7 @@ def square():
     new_value = 4 ** 2
     return new_value
 ```
+
 Note that the function body is indented 4 spaces already for you. Function bodies need to be indented by a consistent number of spaces and the choice of 4 is common.
 
 *** =instructions
