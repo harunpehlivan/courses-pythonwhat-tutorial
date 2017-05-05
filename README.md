@@ -1,4 +1,4 @@
-# Pythonwhat Tutorial Course
+# [Pythonwhat Tutorial Course](https://datacamp.github.io/courses-pythonwhat-tutorial)
 
 This tutorial was created to walk user's through using pythonwhat to perform submission correctness testing on DataCamp exercises. [Visit the walkthrough on this repo's github page](https://datacamp.github.io/courses-pythonwhat-tutorial).
 
