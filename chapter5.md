@@ -4,6 +4,11 @@ description : Insert the chapter description here
 --- type:NormalExercise lang:python xp:100 skills:2 key:4e4e655a61
 ## Wrapping functions
 
+In this example, the `decomposition.NMF` class will take a long time to run if its `n_components` argument is not specified.
+To avoid making a student wait for a minute, for his code to take too long and return an error message, we use a wrapper
+below to check that n_components is specified, and return an error otherwise.
+
+(Note that we can't use an SCT for this, since the SCT runs AFTER the submission is executed.)
 
 *** =instructions
 
@@ -33,12 +38,13 @@ if not getattr(decomposition.NMF.__init__, 'decorated', None):
 
 *** =sample_code
 ```{python}
-
+# should raise error, since n_components wasn't specified
+decomposition.NMF()
 ```
 
 *** =solution
 ```{python}
-
+decomposition.NMF(n_components=2)
 ```
 
 *** =sct
