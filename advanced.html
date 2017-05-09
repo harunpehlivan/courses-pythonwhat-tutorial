@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><title>docwhat</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><style>/* temporary rule, since teach-parser uses markdown-js,
+   which does not wrap code blocks in <pre>
+*/
+code {
+    white-space: pre-wrap;
+}
+
+.sidebar { 
+    position: fixed;
+    top: 61px;
+    width: 250px;
+}
+
+.with-sidebar {
+    position: relative;
+    margin-left: 290px;
+    max-width: 650px;
+}
+
+.menu-root {
+    list-style-type: none;
+    line-height: 1.8em;
+}
+
+.menu-sub {
+    list-style-type: none;
+    line-height: 1.8em;
+    padding-left: 1em;
+}
+
+.dc-lite-example {
+    border: solid lightgrey 1px;
+    /*
+    border-top: solid lightgrey 1px;
+    border-bottom: solid lightgrey 1px;
+    */
+    border-radius: 10px;
+    padding: 15px;
+    width: 657px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.instructions h3 {
+    font-size: 20px;
+}
+
+/*
+.section-link {
+    font-size: .85em;
+}
+*/
+
+.chapter-link {
+    font-size: 1.15em;
+}
+
+a.active {
+    color: black;
+}
+
+.menu-root li:not(.active) .menu-sub{
+    display: none;
+}
+
+li.active .chapter-link {
+    color: black;
+}
+
+
+</style></head><body><h1>DocWhatttt</h1><div class="sidebar"><ul class="menu-root menu-chapters"><li><a class="chapter-link" href="testing-objects.html">Testing objects</a><ul class="menu-sub"><li><a class="section-link" href="#int">int</a></li><li><a class="section-link" href="#float">float</a></li><li><a class="section-link" href="#strings-and-booleans">strings and booleans</a></li><li><a class="section-link" href="#list">list</a></li><li><a class="section-link" href="#list-slicing">list slicing</a></li><li><a class="section-link" href="#dictionary">dictionary</a></li><li><a class="section-link" href="#dictionary-item">dictionary item</a></li><li><a class="section-link" href="#numpy-array">numpy array</a></li><li><a class="section-link" href="#numpy-array-slice">numpy array slice</a></li><li><a class="section-link" href="#pandas-data-frame">pandas data frame</a></li></ul></li><li><a class="chapter-link" href="testing-functions-and-packages.html">Testing functions and packages</a><ul class="menu-sub"><li><a class="section-link" href="#function-calls">function calls</a></li><li><a class="section-link" href="#Import-package">Import package</a></li><li><a class="section-link" href="#Testing-method-calls-(1)">Testing method calls (1)</a></li><li><a class="section-link" href="#Testing-method-calls-(2)">Testing method calls (2)</a></li><li><a class="section-link" href="#Testing-function-call-result">Testing function call result</a></li></ul></li><li><a class="chapter-link" href="control-flow.html">Control flow</a><ul class="menu-sub"><li><a class="section-link" href="#for-loop">for loop</a></li><li><a class="section-link" href="#list-comprehension">list comprehension</a></li><li><a class="section-link" href="#list-comprehension-w/-conditional">list comprehension w/ conditional</a></li><li><a class="section-link" href="#list-comprehension-w/-conditional-2">list comprehension w/ conditional 2</a></li><li><a class="section-link" href="#nested-list-comprehensions">nested list comprehensions</a></li><li><a class="section-link" href="#dict-comprehensions">dict comprehensions</a></li><li><a class="section-link" href="#if-else">if-else</a></li><li><a class="section-link" href="#if-else-within-a-for-loop">if-else within a for loop</a></li><li><a class="section-link" href="#If-else-within-for-loop-within-with">If else within for loop within with</a></li></ul></li><li><a class="chapter-link" href="user-defined-functions.html">User defined functions</a><ul class="menu-sub"><li><a class="section-link" href="#functions-w/o-return-values">functions w/o return values</a></li><li><a class="section-link" href="#functions-with-multiple-parameters">functions with multiple parameters</a></li><li><a class="section-link" href="#functions-with-*args">functions with *args</a></li><li><a class="section-link" href="#functions-with-**kwargs">functions with **kwargs</a></li><li><a class="section-link" href="#functions-with-for-loops-in-them">functions with for loops in them</a></li><li><a class="section-link" href="#functions-with-for-loops-with-if-else-blocks">functions with for loops with if-else blocks</a></li></ul></li><li class="active"><a class="chapter-link" href="advanced.html">Advanced</a><ul class="menu-sub"><li><a class="section-link" href="#Wrapping-functions">Wrapping functions</a></li></ul></li></ul></div><div class="container with-sidebar" id="docwhat"><h2><a name="Wrapping-functions"></a>Wrapping functions</h2><div class="assignment"></div><div class="dc-lite-example"><dc-lite-editor exercise-data="{&quot;chunkLines&quot;:[8,10,12,34,39,44],&quot;tags&quot;:[&quot;instructions&quot;,&quot;hint&quot;,&quot;pre_exercise_code&quot;,&quot;sample_code&quot;,&quot;solution&quot;,&quot;sct&quot;],&quot;number&quot;:1,&quot;type&quot;:&quot;NormalExercise&quot;,&quot;lang&quot;:&quot;python&quot;,&quot;xp&quot;:100,&quot;skills&quot;:[2],&quot;key&quot;:&quot;4e4e655a61&quot;,&quot;title&quot;:&quot;Wrapping functions&quot;,&quot;assignment&quot;:&quot;&quot;,&quot;instructions&quot;:&quot;&quot;,&quot;hint&quot;:&quot;&quot;,&quot;pre_exercise_code&quot;:&quot;from sklearn import decomposition\nimport functools\nimport inspect\n\ndef _init_wrapper(f):\n    @functools.wraps(f)\n    def wrapper(*args, **kwargs):\n        bound_args = inspect.signature(f).bind(*args, **kwargs)\n        if not bound_args.arguments.get('n_components', None):\n            raise BaseException(\&quot;BE SURE TO SPECIFY n_components\&quot;)\n        else: \n            return f(*args, **kwargs)\n    return wrapper\n        \nif not getattr(decomposition.NMF.__init__, 'decorated', None):\n    decomposition.NMF.__init__ = _init_wrapper(decomposition.NMF.__init__)\n    decomposition.NMF.__init__.decorated = True\n\n&quot;,&quot;sample_code&quot;:&quot;\n&quot;,&quot;solution&quot;:&quot;\n&quot;,&quot;sct_start_line&quot;:44,&quot;sct&quot;:&quot;\n&quot;,&quot;parseInfo&quot;:{&quot;pre_exercise_code&quot;:{&quot;codeStart&quot;:13},&quot;sample_code&quot;:{&quot;codeStart&quot;:35},&quot;solution&quot;:{&quot;codeStart&quot;:40},&quot;sct&quot;:{&quot;codeStart&quot;:45}},&quot;anchor&quot;:&quot;Wrapping-functions&quot;,&quot;url&quot;:&quot;advanced.html/#Wrapping-functions&quot;}"></dc-lite-editor><div class="instructions"><h3>Instructions</h3></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-python.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-r.js"></script><script src="build.js"></script><script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script></body></html>
