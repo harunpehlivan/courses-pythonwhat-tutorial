@@ -1,115 +1,35 @@
 ---
-title       : Control flow
+title       : Testing functions and packages
 description : Insert the chapter description here
 
+--- type:NormalExercise lang:python xp:100 skills:2 key:c422ee929b
+## function calls
 
---- type:NormalExercise lang:python xp:100 skills:2 key:3f7ec57dda
-## for loop
+This exercise will consider two ways in which a function call can be used:
 
+1. a straightforward expression. e.g. `max(1,2)`.
+2. within another function call. e.g. `print(type(3.0))`.
+
+The SCT for the example below will show how to test both these types of calls.
+
+**Example exercise below**
+
+Calling a function is easy. To get the type of `3.0` and store the output as a new variable, `result`, you can use the following:
+
+```
+result = type(3.0)
+```
+
+The general recipe for calling functions is thus:
+
+```
+output = function_name(input)
+```
 
 *** =instructions
-Write a `for` loop that iterates over all elements of the `areas` list and prints out every element separately.
-
-*** =hint
-
-*** =sample_code
-```{python}
-# areas list
-areas = [11.25, 18.0, 20.0, 10.75, 9.50]
-
-# Code the for loop
-
-```
-
-*** =solution
-```{python}
-# areas list
-areas = [11.25, 18.0, 20.0, 10.75, 9.50]
-
-# Code the for loop
-for area in areas :
-    print(area)
-```
-
-*** =sct
-```{python}
-# get code of for loop
-msg = "Make sure to loop over `areas`"
-for_loop = Ex().check_for_loop(0)
-
-# for loop iterator
-for_loop.check_iter().has_equal_value(incorrect_msg = msg)
-
-# for loop body
-# note that we can't use has_equal_value below, because the body of a for loop
-# is not necessarily a single python expression (i.e. it doesn't return a value)
-msg = "Print out `area`"
-for_loop.check_body().has_equal_output(incorrect_msg = msg, context_vals = ["test"])
-
-# alternatively, could do
-# for_loop.check_body().set_context(area = "test").has_equal_output(incorrect_msg = msg)
-
-```
-
-
---- type:NormalExercise lang:python xp: skills: key:8da0db3df3
-## list comprehension
-
-*** =instructions
-- Using the range of numbers from `0` to `9` as your iterable and `i` as your iterator variable, write a list comprehension that produces a list of numbers consisting of the squared values of `i`. 
-
-*** =hint
-
-
-*** =pre_exercise_code
-```{python}
-
-```
-
-*** =sample_code
-```{python}
-# Create list comprehension: squares
-squares = [____ for ____ in ____]
-
-```
-
-*** =solution
-```{python}
-# Create list comprehension: squares
-squares = [i**2 for i in range(0,10)]
-
-```
-
-*** =sct
-```{python}
-# Spec2 
-missing_msg="Did you use a list comprehension to turn the list of lists into a list of dicts?"
-list_comp = Ex().check_list_comp(0, missing_msg = missing_msg)
-
-# test that they defined the correct number of iterator variables
-# setting exact_names to True also requires they have the same
-# variable name as those in the solution
-list_comp.has_context(exact_names = True)
-
-# test body of list comprehension
-list_comp \
-    .check_body() \
-    .set_context(i=4) \
-    .has_equal_value('Are you squaring each value of `i`?', error_msg='Are you squaring each value of `i`?')
-
-# test iterator of list comprehension
-list_comp \
-    .check_iter() \
-    .has_equal_value('Are you iterating over `range(0,10)`?') 
-           
-```
-
-
---- type:NormalExercise lang:python xp:100 skills:2 key:8e9ef7d8a3
-## list comprehension w/ conditional
-
-*** =instructions
-- Use `member` as the iterator variable in the list comprehension. For the conditional, use `len()` to evaluate the iterator variable. Note that you only want strings with 7 characters or more.
+- Use `int()` to convert `var1` to an integer. Store the output as `out`.
+- Use `print()` in combination with `type()` to print out the type of `var2`.
+- Use `print()` in combination with `len()` to get the length of the list `var2`.
 
 *** =hint
 
@@ -120,69 +40,84 @@ list_comp \
 
 *** =sample_code
 ```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+# Create variables var1 and var2
+var1 = True
+var2 = [1, 2, 3, 4]
 
-# Create list comprehension: new_fellowship
-new_fellowship = [____ for ____ in fellowship ____]
+# Convert var1 to an integer: out
+
+
+# Print out type of var2
+
+
+# Print out length of var2
+
 
 ```
 
 *** =solution
 ```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+# Create variables var1 and var2
+var1 = True
+var2 = [1, 2, 3, 4]
 
-# Create list comprehension: new_fellowship
-new_fellowship = [member for member in fellowship if len(member) >= 7]
+# Convert var1 to an integer: out
+out = int(var1)
 
+# Print out type of var2
+print(type(var2))
+
+# Print out length of var2
+print(len(var2))
 ```
 
 *** =sct
 ```{python}
 
-# Test: list comprehension
-list_comp = Ex().check_list_comp(0, missing_msg="Did you create the list comprehension?")
+# test instruction 1, int(var1) ----------------------------------------------------------------------
+msg_missing_int = "Use `int()` to make an integer of `var1` and assign to `out`."
+msg_incorrect_int = "Use `int()` with the correct variables. You should pass `var1` to it."
 
-# test body
-list_comp \
-    .check_body() \
-    .set_context(member='samwise') \
-    .has_equal_value('Did you use `member` as your iterator variable?', 
-                     error_msg='Did you use `member` as your iterator variable?')
+(Ex() 
+    # SCT below will fail the submission if int() wasn't used.
+    # if it was used, it selects the code for the 1st int() call
+    .check_function("int", 0, missing_msg =  msg_missing_int)
+    # SCT below checks that the contents of the function call have the same
+    # abstract syntax tree (AST) code representation in the submission and solution
+    # (e.g. `type(var1)` in solution matches submission)
+    .has_equal_ast(msg_incorrect_int))
 
-# test iterator
-list_comp.check_iter().has_equal_value(error_msg='Are you using `fellowship` as your iterable?')
+# use test_object after checking the int() call, to make sure it returned the correct results.
+Ex().test_object("out", incorrect_msg = "Make sure to assign the correct value to `out`.")
 
-# test ifs
-msg_incorrect = 'Did you create a list that only includes strings with 7 characters or more?'
-msg_error = 'Did you create a list that only includes strings with 7 characters or more?'
+# test instruction 2 ---------------------------------------------------------------------------------
+msg = "Make sure to print out the type of `var2` like this: `print(type(var2))`."
+# SCT below gets the first instance where type was used, then gets its first argument.
+#     has_equal_value runs the code for that argument (i.e. `var2` in the solution code), and
+#     verifies the submission and solution results are the equal.
+Ex().check_function("type", 0).check_args(0).has_equal_value(msg)
 
-# NOTE: putting an SCT in parentheses allows us to omit '\' when chaining SCTs
-#       this makes it easier to include comments in a chain
-(list_comp
-    # note that we need to specify which if to check (here index = 0)
-    .check_ifs(0)
-    # mutli allows you to run multiple SCTs on the code focused by check_ifs
-    .multi(
-        # test w/case that should pass the if
-        set_context(member='samwise').has_equal_value(incorrect_msg=msg_incorrect, error_msg=msg_error),
-        # test w/case that should not pass the if
-        set_context(member='frodo').has_equal_value(incorrect_msg=msg_incorrect, error_msg=msg_error)
-        ))
-        
+# Similar to above, but the first argument to print should be equivalent to type(var2),
+# which we check using has_equal_value
+Ex().check_function("print", 0).check_args(0).has_equal_value(msg)
+
+# test instruction 3 ---------------------------------------------------------------------------------
+msg = "Make sure to print out the length of `var2` like this: `print(len(var2))`."
+# SCTs below are similar to above, except they test the value of the whole function call
+# rather than a single argument
+Ex().check_function("len", 0).has_equal_value(msg)
+Ex().check_function("print", 1).has_equal_value(msg)
 ```
 
 
+--- type:NormalExercise lang:python xp:100 skills:2 key:7432a6376f
+## Import package
 
---- type:NormalExercise lang:python xp:100 skills:2 key:f8cb706e3f
-## list comprehension w/ conditional 2
-
-The previous exercise an `if` conditional statement in the _predicate expression_ part of a list comprehension.
-In this exercise, we will test an `if-else` statement in the _output expression_, or body, of the list comprehension.
+Often, exercises require importing libraries. For example, using the constant `pi` requires the `math` package. The exercise below shows how imports can be tested.
 
 *** =instructions
-- In the output expression, keep the string as-is **if** the number of characters is >= 7, **else** replace it with an _empty string_.
+- Import the `math` package. Now you can access the constant `pi` with `math.pi`.
+- Import the `radius` function from `math`
 
 *** =hint
 
@@ -193,198 +128,55 @@ In this exercise, we will test an `if-else` statement in the _output expression_
 
 *** =sample_code
 ```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+# Import the math package
 
-# Create list comprehension: new_fellowship
-new_fellowship = [____ for ____ in fellowship]
+
+# Import radians from math package
+
 
 ```
 
 *** =solution
 ```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+# Import the math package
+import math
 
-# Create list comprehension: new_fellowship
-new_fellowship = [member if len(member) >= 7 else '' for member in fellowship]
-
+# Import radians from math package
+from math import radians
 ```
 
 *** =sct
 ```{python}
+# see http://pythonwhat.readthedocs.io/en/latest/simple_tests/test_import.html
+# Note that same_as = False accepts the submission even if it uses an alias
+#    e.g. "import math as m"
+Ex().test_import("math", same_as = False)
 
-# Test: list comprehension
-list_comp = Ex().check_list_comp(0, missing_msg="Did you create the list comprehension?")
+# Note that the test above is more robust than the SCT below,
+# since it would fail if submission used "import math as m"
+# Ex().has_equal_ast(code = 'import math', exact = False)
 
-# MAIN DIFFERENCE FROM LAST EXERCISE ----------------------------------------------------------------
-# Test if-else statement
-msg_incorrect = 'Are you setting the string to be empty if it is greater than equal to 7 characters?'
-msg_error = 'Are you using `member` as your iterator variable?'
-list_comp.check_body() \
-    .check_if_exp(0) \
-    .multi(
-        set_context(member='samwisee').has_equal_value(msg_incorrect, error_msg=msg_error), set_context(member='frodoo').has_equal_value(msg_incorrect, error_msg=msg_error))
-
-# For clarity, getting the if-else expression can be done with the SCT below
-# Ex().check_list_comp(0).check_body().check_if_exp(0)
-
-# ---------------------------------------------------------------------------------------------------
-
-# Test iterator
-list_comp.check_iter().has_equal_value(error_msg='Did you use `fellowship` as your iterable?')
-
+Ex().test_import("math.radians", 
+                 not_imported_msg = "Be sure to import `radians`", 
+                 incorrect_as_msg = "Don't set any alias for `radians`.")
 ```
 
 
 
---- type:NormalExercise lang:python xp:100 skills:2 key:92d979a1ca
-## nested list comprehensions
+--- type:NormalExercise lang:python xp:100 skills:2 key:243b0fb89c
+## Testing method calls (1)
 
-
-*** =instructions
-- In the inner list comprehension - that is, the **output expression** of the nested list comprehension - create a list of values from `0` to `4` using `range()`. Use `col` as the iterator variable. 
-- In the **iterable** part of your nested list comprehension, use `range()` to count 5 rows - that is, create a list of values from `0` to `4`. Use `row` as the iterator variable; note that you won't be needing this to create values in the list of lists.
-
-*** =hint
-
-*** =pre_exercise_code
-```{python}
-# pec
-```
-
-*** =sample_code
-```{python}
-# Create a 5 x 5 matrix using a list of lists: matrix
-matrix = [[____] ____]
+Methods are functions that are called from an object.
+For example, the code below creates a string object (assigned to `x`),
+and then calls its `strip` method.
+This method returns a new string, whose `capitalize` method is then called.
 
 ```
-
-*** =solution
-```{python}
-# Create a 5 x 5 matrix using a list of lists: matrix
-[[col for col in range(5)] for row in range(5)]
-
+x = " datacamp "
+x.strip().capitalize()   # results in "Datacamp"
 ```
 
-*** =sct
-```{python}
-# Test: Outer list comprehension
-#       we set the value of the context variable row here as well
-outer_comp = Ex().check_list_comp(0)
-
-inner_comp = outer_comp \
-    .check_body() \
-    .check_list_comp(0)
-
-# does its iterator code match the solution?
-inner_comp.check_iter() \
-    .has_equal_ast('Did you create a list of values from `0` to `4` using `range()`?')
-
-# alternatively, could use check_function
-# inner_comp.check_iter().check_function('range', 0) # etc..
-
-# Test the value of the inner range call in the solution
-# Note: temporary variables defined in the comprehensions need to be set
-# on the block of code in which they're first available, so we set
-# the temporary variables row and col separately, using set_context
-outer_comp \
-    .check_body() \
-    .set_context(row = 1) \
-    .check_list_comp(0) \
-    .check_body() \
-    .set_context(col = 2) \
-    .has_equal_value()
-
-# alternatively, if you know the names the student will use for temporary variables
-# you can use extra_env instead. For example, if you known they will use row and col,
-# then you could use the following.
-# has_equal_value(extra_env = {'col': 2, 'row': 1})
-```
-
---- type:NormalExercise lang:python xp:100 skills:2 key:721dc6b47c
-## dict comprehensions
-
-
-*** =instructions
-- Create a dict comprehension where the _key_ is a string in `fellowship` and the _value_ is the length of the string. Remember to use the syntax _key_`:`_value_ in the _output expression_ part of the comprehension to create the members of the dictionary. Use `member` as the iterator variable.
-
-*** =hint
-- A basic dict comprehension has the same syntax as a list comprehension, except with `{}`: `{` _output expression_ `for` _iterator variable_ `in` _iterable_ `}`.
-
-*** =pre_exercise_code
-```{python}
-# pec
-```
-
-*** =sample_code
-```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
-
-# Create dict comprehension: new_fellowship
-new_fellowship = ____
-
-```
-
-*** =solution
-```{python}
-# Create a list of strings: fellowship
-fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
-
-# Create dict comprehension: new_fellowship
-new_fellowship = {member:len(member) for member in fellowship}
-
-```
-
-*** =sct
-```{python}
-
-# Test: dict comprehension
-dict_comp = Ex().check_dict_comp(0, missing_msg="Did you create a dict comprehension?")
-
-# Test dict comp key part
-dict_comp \
-    .check_key() \
-    .set_context(member='samwise') \
-    .has_equal_value(incorrect_msg='Are you using `member` as your iterator variable?',
-                     error_msg='Are you using `member` as your iterator variable?')
-
-# Test dict comp value part
-# Note: we only test whether `len` was used
-dict_comp \
-    .check_value() \
-    .check_function('len', 0)
-
-# Test dict comp iter part
-dict_comp \
-    .check_iter() \
-    .has_equal_value('Did you use `fellowship` as your iterable?')
-
-```
-
-
-
---- type:NormalExercise lang:python xp:100 skills:2 key:bbcf36c345
-## if-else
-
-In python, there are two kinds of if-else expressions:
-
-```
-# inline if-else
-'yes' if True else 'no'
-
-# if-else block
-if True:
-    'yes'
-else:
-    'no'
-```
-
-Note that the body of an inline if-else always returns a value,
-while an if-else block will contain a number of expressions to run. 
-This is an important distinction, since it means you can use `has_equal_value` on the body of a inline if-else,
-but not an if-else block.
+How to test "chains" of methods like the one above is shown in this exercise.
 
 
 *** =instructions
@@ -398,232 +190,145 @@ but not an if-else block.
 
 *** =sample_code
 ```{python}
-# inline if-else, where person1 loves beets
-food = 'beets'
-person1 = 'happy' if food == 'beets' else 'sad'
-
-# if-else block, where person2 hates beets
-if food == 'beets':
-    person2 = 'sad'
-else:
-    person2 = 'happy'
+x = " datacamp "
+x.strip().capitalize()   # results in "Datacamp"
 
 ```
 
 *** =solution
 ```{python}
-# inline if-else, where person1 loves beets
-food = 'beets'
-person1 = 'happy' if food == 'beets' else 'sad'
-
-# if-else block, where person2 hates beets
-if food == 'beets':
-    person2 = 'sad'
-else:
-    person2 = 'happy'
+x = " datacamp "
+x.strip().capitalize()   # results in "Datacamp"
 
 ```
 
 *** =sct
 ```{python}
-# check inline if expression
-inline_if = Ex().check_if_exp(0)    # inline if expression (top)
 
-if_block = Ex().check_if_else(0)    # if-else block statement (bottom)
+# The SCT check_function below gets the code corresponding to the strip call
+# Note that signature = False is necessary because pythonwhat can not always
+# match function signatures for built-ins
+# see: http://pythonwhat.readthedocs.io/en/latest/part_checks.html#matching-signatures
+msg = "Did you use `x.strip()`?"
+Ex().check_function('x.strip', 0, signature = False, missing_msg = msg)
 
-# check_cond
-inline_if.check_test().has_equal_ast("food == 'beets'")
-if_block.check_test().has_equal_ast("food == 'beets'")
-
-# check_body 
-# note that for if_block general expressions like assignments
-# can take place in the code, while an inline if is a single
-# expression that returns a value, so its body can't have an assigment
-inline_if.check_body().has_equal_ast("'happy'")
-if_block.check_body().has_equal_ast("person2 = 'sad'")
-
-# check orelse
-inline_if.check_orelse().has_equal_ast("'sad'")
-if_block.check_orelse().has_equal_ast("person2 = 'happy'")
+# Check the capitalize portion
+Ex().check_function('x.strip.capitalize', 0, signature=False)
 
 ```
+--- type:NormalExercise lang:python xp:100 skills:2 key:497811536f
+## Testing method calls (2)
 
+Often exercises can get pretty hairy. For example, checking a chain of indexing a method calls.
+For example, the chain below...
 
+```
+x[0].append('c')
+```
 
---- type:NormalExercise lang:python xp:100 skills:2 key:d6419711b9
-## if-else within a for loop
+Gets the first element of `x`, and then calls that element's append method.
+In the example below, we should how to use `has_equal_ast` as a quick and dirty
+way to examine this style of method call chaining.
 
-**Note: this exercise is left in its entirety**
-
-Weights can be added to edges in a graph, typically indicating the "strength" of an edge. In NetworkX, the weight is indicated by the `'weight'` key in the metadata dictionary.
-
-Before attempting the exercise, use the IPython Shell to access the dictionary metadata of `T` and explore it, for instance by running the commands `T.edge[1][10]` and then `T.edge[10][1]`. Note how there's only one field, and now you're going to add another field, called `'weight'`.
 
 *** =instructions
-- Set the `'weight'` attribute of the edge between node `1` and `10` of `T` to be equal to `2`. Refer to the following template to set an attribute of an edge: `network_name.edge[node1][node2]['attribute'] = value`. This is because NetworkX graphs are dictionaries of dictionaries (of dictionaries). 
-- Set the weight of every edge involving node `293` to be equal `1.1`. To do this:
-    - Using a `for` loop, iterate over all the edges of `T`, including the `metadata`. 
-    - If `293` is involved in the list of nodes `[u, v]`:
-        - Set the weight of the edge between `u` and `v` to be `1.1`.
 
 *** =hint
-- To set an attribute of an edge, use the command `network_name.edge[node1][node2]['attribute'] = value`. Here, the network is `T`, `node1` is `1`, `node2` is `10`, `'attribute'` is `'weight'`, and the `value` is `2`.
-- In the `for` loop, you need to iterate over `T.edges(data=True)`. If `293` is present in the list `[u, v]`, then set its `'weight'` attribute to be `1.1` just as you did above where you set the `'weight'` of the edge between `1` and `10` to be `2`. 
 
 *** =pre_exercise_code
 ```{python}
-# pec
-import networkx as nx
-import requests
 
-# Download the pickle file.
-pkl_url = 'http://s3.amazonaws.com/assets.datacamp.com/production/course_1822/datasets/ego-twitter.p'
-r = requests.get(pkl_url, stream=True)
-
-# Create a local binary file with the downloaded content.
-with open('ego-twitter.p', 'wb') as f:
-    f.write(r.content)
-
-# Read the graph from local disk.
-T = nx.read_gpickle('ego-twitter.p')
-__T = nx.read_gpickle('ego-twitter.p')
-
-print('The Twitter network has been loaded as `T`.')
 ```
 
 *** =sample_code
 ```{python}
-# Set the weight of the edge
-____ = 2
+x = [['a', 'b'],['x', 'y']]
 
-# Iterate over all the edges (with metadata)
-for u, v, d in ____:
+x[0].append('c')
+```
 
-    # Check if node 293 is involved
-    if 293 in ____:
+*** =solution
+```{python}
+x = [['a', 'b'],['x', 'y']]
+
+x[0].append('c')
+```
+
+*** =sct
+```{python}
+# for the SCT below, 
+#    code specifies the code whose AST must be in the solution
+#    exact = False, says that it just needs to be contained in the solution somewhere,
+#            like using 'a' in 'a b c' rather than 'a' == 'a b c'
+#
+# note that these submissions would work also:
+#   x[0].append("c")
+#   x[0].append( """c""" )
+# but these solutions fail (produce different ASTs)
+#   x[0] += ['c']
+code = "x[0].append('c')"
+msg = "Make sure you used `%s`" % code
+Ex().has_equal_ast(code=code, exact=False)
+
+# note that you can also check an earlier piece of a statement
+# to visualize ast, see:
+#       https://sqlwhat-viewer.herokuapp.com/static/index.html#/editor?grammar=python
+#
+# comment SCTs above to see these in action...
+Ex().has_equal_ast("did you use `x[0]`?", code = "x[0]", exact = False)
+Ex().has_equal_ast("did you use `x[0].append`?", code = "x[0].append", exact = False)
+```
+
+--- type:NormalExercise lang:python xp:100 skills:2 key:fd9099d8c4
+## Testing function call result
+
+In this example, we have the student define a custom function, in which they should call `max`.
+The order of the arguments to `max` don't matter, so both versions below should pass:
+
+* `max(input, 0)`
+* `max(0, input)`
+
+Note that the variable `input` is a parameter in the custom function, so it is not defined after running
+the solution script. In order to test the output of the `max` function call, we use the SCT to define `input`
+beforehand.
+
+
+*** =instructions
+
+*** =hint
+
+*** =pre_exercise_code
+```{python}
+
+```
+
+*** =sample_code
+```{python}
+def relu(input):
+    # order of arguments doesn't matter
+    output = max(____, ____)
     
-        # Set the weight to 1.1
-        ____ = 1.1
+    return(output)
 ```
 
 *** =solution
 ```{python}
-# Set the weight of the edge
-T.edge[1][10]['weight'] = 2
-
-# Iterate over all the edges (with metadata)
-for u, v, d in T.edges(data=True):
-
-    # Check if node 293 is involved
-    if 293 in [u, v]:
+def relu(input):
+    # order of arguments doesn't matter
+    output = max(0, input)
     
-        # Set the weight to 1.1
-        T.edge[u][v]['weight'] = 1.1
+    return(output)
 ```
 
 *** =sct
 ```{python}
-pc = """T = __T"""
-
-for_loop = Ex().check_for_loop(0)
-
-# Check the iterator part (in the solution, T.edges(data=True))
-# Note that a copy of T was made named __T, since the solution code mutates T (changes its contents).
-#   the pre_code argument """T = __T""" says to re-assign T to be the unmutated copy
-#   see: http://pythonwhat.readthedocs.io/en/latest/expression_tests.html#pre-code-fixing-mutations
-for_loop.check_iter().test_expression_result(pre_code=pc)
-
-# Get the if-else statement within the for loop
-if_else = for_loop.check_body().check_if_else(0)
-
-# test if-else statement
-if_else.check_test().has_equal_value(context_vals=[293,29200000])
-if_else.check_test().has_equal_value(context_vals=[2920000000,293])
-if_else.check_body().has_equal_value(expr_code="T.edge[232][293]['weight']")
-
-success_msg("Excellent job! Being able to iterate over graphs like this to explore and alter their metadata is an important skill.")
-```
-
-
-
---- type:NormalExercise lang:python xp:100 skills:2 key:3ba794b4e4
-## If else within for loop within with
-
-*** =instructions
-
-
-*** =hint
-
-
-*** =pre_exercise_code
-```{python}
-open('log.txt', 'w').write("""
-LOG: starting server
-LOG: server started
-GET request
-LOG: server error
-""")
-
-```
-
-*** =sample_code
-```{python}
-# Define read_large_file()
-def read_large_file(file_object):
-    """A generator function to iterate over LOG messages."""
-
-    for line in ____:
-        if ____:
-            ____ line
-
-# Open a connection to the file
-with open('world_dev_ind.csv') as file:
-
-    # Create a generator object for the file: gen_file
-    gen_file = read_large_file(file)
-
-    # Print the first three lines of the file
-    print(next(gen_file))
-    print(next(gen_file))
-    print(next(gen_file))
-
-```
-
-*** =solution
-```{python}
-# Define read_large_file()
-def read_large_file(file_object):
-    """A generator function to iterate over LOG messages."""
-
-    for line in file_object:
-        if line.startswith('LOG'):
-            yield line
-
-
-# Open a connection to the file
-with open('log.txt') as file:
-
-    # Create a generator object for the file: gen_file
-    gen_file = read_large_file(file)
-
-    # Print the first three lines of the file
-    print(next(gen_file))
-    print(next(gen_file))
-    print(next(gen_file))
-
-```
-
-*** =sct
-```{python}
-
-# Test: read_large_file() definition
-fn_def = Ex().check_function_def('read_large_file')
-
-fn_body = fn_def.check_body()
-loop = fn_body.check_for_loop(0)
-if_else = loop.check_body().check_if_else(0)
-
-if_else.check_test().has_equal_ast("Did you use `line.startswith('LOG')`?")
-if_else.check_body().has_equal_ast("Be sure to only use `yield line`.")
+# Note: check_function_def explained in chapter user defined functions
+#       the key here is that the line below gets the body of the function `relu`
+relu_body = Ex().check_function_def('relu').check_body()
+# Get the 'max' function, then test its output with different values of the input variable
+# see http://pythonwhat.readthedocs.io/en/latest/expression_tests.html
+relu_body.check_function('max', 0, signature = False) \
+         .has_equal_value(extra_env = {'input': 1}) \
+         .has_equal_value(extra_env = {'input': -.5})
 
 ```
