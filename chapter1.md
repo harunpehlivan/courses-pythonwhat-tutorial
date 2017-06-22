@@ -7,8 +7,17 @@ attachments :
 --- type:NormalExercise lang:python xp:100 skills:2 key:9615757094
 ## Running a simple test
 
+The editor below shows the four code parts of a DataCamp exercise. 
+
+* The `sct` tab is the main component this tutorial will cover.
+* Click `run` to preview the exercise.
+* Edit any tab and click `run` to preview your changes.
+
+For general info on building DataCamp courses, see the [teach documentation](https://www.datacamp.com/teach/documentation).
 
 *** =instructions
+
+* Change 'change me' to 'hello'
 
 *** =hint
 
