@@ -719,3 +719,52 @@ Ex().check_object("cars").has_equal_key("country").has_equal_key("cars_per_cap")
 #msg = "Don't forget to print out the `cars` DataFrame with [`print()`](https://docs.python.org/3/library/functions.html#print)."
 Ex().check_function("print", 0).check_args(0).has_equal_value()
 ```
+
+--- type:NormalExercise lang:python xp:100 skills:2 key:d61a27462f
+## custom equality test
+
+
+*** =instructions
+
+*** =hint
+
+*** =pre_exercise_code
+```{python}
+
+```
+
+*** =sample_code
+```{python}
+# two ways of writing the average of 1.1, 2.2, and 3.3
+# note that they will not be equal (using ==) in python
+#
+# a = (1.1/3 + 2.2/3 + 3.3/3)
+a = sum([1.1, 2.2, 3.3]) / 3
+```
+
+*** =solution
+```{python}
+# two ways of writing the average of 1.1, 2.2, and 3.3
+# note that they will not be equal (using ==) in python
+#
+a = (1.1/3 + 2.2/3 + 3.3/3)
+# a = sum([1.1, 2.2, 3.3]) / 3
+```
+
+*** =sct
+```{python}
+import numpy as np
+
+# Problem ----------
+# uncomment SCT below. Why does it fail? Floating point issues...
+# Ex().check_object('a').has_equal_value()
+
+# Solution ---------
+# use np.allclose, see 
+# https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html
+#
+Ex().check_object('a').has_equal_value(func = np.allclose)
+
+# equivalent to...
+# Ex().check_object('a').has_equal_value(func = lambda x, y: np.allclose(x,y))
+```
