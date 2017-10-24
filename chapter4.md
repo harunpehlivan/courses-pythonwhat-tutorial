@@ -52,7 +52,7 @@ for_loop.check_body().has_equal_output(incorrect_msg = msg, context_vals = ["tes
 ```
 
 
---- type:NormalExercise lang:python xp: skills: key:8da0db3df3
+--- type:NormalExercise lang:python xp: skills: key:07b401d971
 ## list comprehension
 
 *** =instructions
